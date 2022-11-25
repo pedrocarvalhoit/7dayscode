@@ -11,6 +11,7 @@
 	<groupId>br.com.blackbelt</groupId>
 	<artifactId>7dayscode</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>7dayscode</name>
 	<description>7 Days Cod Project</description>
 	<properties>
