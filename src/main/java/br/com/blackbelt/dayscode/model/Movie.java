@@ -1,4 +1,4 @@
-package br.com.blackbelt.dayscode.controller.model;
+package br.com.blackbelt.dayscode.model;
 
 import br.com.blackbelt.dayscode.dto.DadosCadastroMovie;
 

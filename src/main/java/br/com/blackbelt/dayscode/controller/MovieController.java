@@ -1,12 +1,12 @@
 package br.com.blackbelt.dayscode.controller;
 
-import br.com.blackbelt.dayscode.controller.model.Movie;
 import br.com.blackbelt.dayscode.dto.DadosCadastroMovie;
+import br.com.blackbelt.dayscode.dto.ListOfMovies;
+import br.com.blackbelt.dayscode.model.Movie;
 import br.com.blackbelt.dayscode.repository.MovieRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -24,12 +24,11 @@ public class MovieController {
     private RestTemplate restTemplate;
 
     @GetMapping("top250")
-    public String getTop250Movies(){
-        ResponseEntity<String> response =
-                this.restTemplate.getForEntity("https://imdb-api.com/en/API/Top250Movies/k_zu8058un", String.class);
+    public ListOfMovies getTop250Movies(){
+        ResponseEntity<ListOfMovies> response =
+                this.restTemplate.getForEntity("https://imdb-api.com/en/API/Top250Movies/k_zu8058un", ListOfMovies.class);
         System.out.println("teste");
         return response.getBody();
-
     }
 
     @PostMapping("cadastrar")
@@ -38,5 +37,7 @@ public class MovieController {
     public void cadastrar(@RequestBody @Valid DadosCadastroMovie dados){
         movieRepository.save(new Movie(dados));
     }
+
+
 
 }
