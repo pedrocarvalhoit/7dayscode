@@ -1,5 +1,6 @@
 package br.com.blackbelt.dayscode.controller;
 
+import br.com.blackbelt.dayscode.HTMLGenerator;
 import br.com.blackbelt.dayscode.dto.DadosCadastroMovie;
 import br.com.blackbelt.dayscode.dto.ListOfMovies;
 import br.com.blackbelt.dayscode.model.Movie;
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
 
 @RestController
 @RequestMapping("api/movies")
@@ -24,10 +27,13 @@ public class MovieController {
     private RestTemplate restTemplate;
 
     @GetMapping("top250")
-    public ListOfMovies getTop250Movies(){
+    public ListOfMovies getTop250Movies() throws FileNotFoundException {
         ResponseEntity<ListOfMovies> response =
                 this.restTemplate.getForEntity("https://imdb-api.com/en/API/Top250Movies/k_zu8058un", ListOfMovies.class);
-        System.out.println("teste");
+
+        PrintWriter writer = new PrintWriter("src/main/resources/content2.html");
+        new HTMLGenerator(writer).generate(response.getBody());
+        writer.close();
         return response.getBody();
     }
 
