@@ -1,7 +1,5 @@
 package br.com.blackbelt.dayscode;
 
-import br.com.blackbelt.dayscode.controller.MovieController;
-import br.com.blackbelt.dayscode.dto.ListOfMovies;
 
 import java.io.PrintWriter;
 
@@ -34,7 +32,7 @@ public class HTMLGenerator {
             </div>
             """;
 
-    public void generate(ListOfMovies movies) {
+    public void generate(FilmeController.ListOfMovies movies) {
 
         printWriter.println(head);
 

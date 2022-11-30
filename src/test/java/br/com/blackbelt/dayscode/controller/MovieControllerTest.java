@@ -1,5 +1,6 @@
 package br.com.blackbelt.dayscode.controller;
 
+import br.com.blackbelt.dayscode.FilmeController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -28,5 +29,28 @@ class MovieControllerTest {
         assertEquals(HttpStatus.OK,response.getStatusCode());
         assertNotNull(response.getBody());
     }
+
+    @Test
+    void shouldInsertToFavoritos() {
+
+        String filmeId = "tt0068646";
+
+        ResponseEntity<String> response =
+                this.restTemplate.postForEntity("http://localhost:" + port + "/favorito/" + filmeId, null, String.class);
+
+        assertTrue(response.getStatusCode().is2xxSuccessful());
+        assertEquals(FilmeController.POST_SUCCESS, response.getBody());
+
+    }
+
+    @Test
+    void shouldReturnFavoritos() {
+
+        ResponseEntity<FilmeController.ListOfMovies> response =
+                this.restTemplate.getForEntity("http://localhost:" + port + "/favoritos", FilmeController.ListOfMovies.class);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+    }
+
 
 }
